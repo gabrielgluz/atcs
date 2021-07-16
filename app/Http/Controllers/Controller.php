@@ -11,7 +11,14 @@ class Controller extends BaseController
 	protected function checkIfSystemIsOnline() {
 
 		$systemRepository = new SystemRepository();
-		return $systemRepository->first()->online;
+		$system = $systemRepository->first();
+
+        if(empty($system)) {
+            $system = new \stdClass();
+            $system->online = false;
+        }
+
+        return $system->online;
 
 	}
 

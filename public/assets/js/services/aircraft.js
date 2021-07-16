@@ -173,7 +173,7 @@ class Aircraft {
                 if(json){
                     $('#aircraft-modal').modal('hide');
                     this.init();
-                    alert2('success!', json.message, {
+                    alert2('Success!', json.message, {
                         icon: 'success',
                         confirmText: 'OK'
                     });
