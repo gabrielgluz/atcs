@@ -14,6 +14,10 @@
 
 $router->get('/',  ['as' => 'index', 'uses' => 'SiteController@index']);
 
+$router->group(['prefix' => 'systems'], function () use ($router) {
+	$router->get('/',  ['as' => 'systems.get', 'uses' => 'SystemController@get']);
+	$router->put('/',  ['as' => 'systems.put', 'uses' => 'SystemController@boot']);
+});
 
 $router->group(['prefix' => 'queues'], function () use ($router) {
 	$router->get('/',  ['as' => 'queue.get', 'uses' => 'QueuesController@get']);

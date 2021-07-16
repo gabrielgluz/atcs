@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aircraft;
 use App\Repositories\AircraftRepository;
 use App\Rules\Size;
 use App\Rules\Type;
@@ -14,7 +13,7 @@ class AircraftsController extends Controller
 
     public function __construct () 
     {
-        $this->aircraftRepository = new AircraftRepository(new Aircraft);
+        $this->aircraftRepository = new AircraftRepository();
     }
 
     public function get()
@@ -40,6 +39,8 @@ class AircraftsController extends Controller
         ]);
 
         try {
+            if(!$this->checkIfSystemIsOnline())
+                throw new \Exception("System if Offline! To create Aircrafts you must turn the system on.");
             
             $this->aircraftRepository->create($request->all());
             return response()->json([
@@ -65,6 +66,8 @@ class AircraftsController extends Controller
         ]);
 
         try {
+            if(!$this->checkIfSystemIsOnline())
+                throw new \Exception("System if Offline! To update Aircrafts you must turn the system on.");
             
             $aircraft = $this->aircraftRepository->find($id);
             $aircraft->update($request->all());
@@ -86,6 +89,8 @@ class AircraftsController extends Controller
     public function delete($id) 
     {
         try {
+            if(!$this->checkIfSystemIsOnline())
+                throw new \Exception("System if Offline! To delete Aircrafts you must turn the system on.");
             
             $aircraft = $this->aircraftRepository->find($id);
             $aircraft->delete();

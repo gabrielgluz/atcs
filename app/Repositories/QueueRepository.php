@@ -2,20 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Models\Aircraft;
 use App\Models\Queue;
 use App\Repositories\AircraftRepository;
 
 class QueueRepository extends BaseRepository
 {
-	public function __construct(Queue $model)
-	{
-		$this->model = $model;
-	}
+    public function __construct(Queue $model = null) {
+        if(empty($model))
+            $this->model = new Queue;
+        else
+            $this->model = $model;
+    }
 
     public function delete() {
 
-        $aircraftRepository = new AircraftRepository(new Aircraft);
+        $aircraftRepository = new AircraftRepository();
 
         $enqueued = $aircraftRepository->getEnqueued();
         if(empty($enqueued))

@@ -6,10 +6,12 @@ use App\Models\Aircraft;
 
 class AircraftRepository extends BaseRepository
 {
-	public function __construct(Aircraft $model)
-	{
-		$this->model = $model;
-	}
+    public function __construct(Aircraft $model = null) {
+        if(empty($model))
+            $this->model = new Aircraft;
+        else
+            $this->model = $model;
+    }
 
     public function getEnqueued() {
         $aircrafts = $this->model->has('queue')->with('queue')->get()->toArray();

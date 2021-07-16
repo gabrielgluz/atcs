@@ -1,3 +1,6 @@
+const SystemComponent = new System();
+SystemComponent.init();
+
 const AircraftComponent = new Aircraft();
 AircraftComponent.init();
 
@@ -20,8 +23,12 @@ function enqueue(id) {
 	QueueComponent.create(id);
 }
 
-function dequeue(id) {
-	QueueComponent.delete(id);
+function dequeue() {
+	QueueComponent.delete();
+}
+
+function boot() {
+	SystemComponent.update();
 }
 
 $('.aircraft-detail').submit(function (e) {

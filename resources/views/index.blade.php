@@ -41,9 +41,9 @@
     <sidebar class="navbar">
         <ul class="navbar-menu">
             <li class="navbar-item active">
-                <a href="#">
+                <a href="#" onclick="boot()">
                     <i class="fa fa-power-off"></i>
-                    Boot System
+                    <span class="boot-label">Boot System</span>
                 </a>
             </li>
             <li class="navbar-item active">
@@ -121,6 +121,7 @@
     <script src="assets/js/sweetalert2.js"></script>
     <script src="assets/js/services/aircraft.js"></script>
     <script src="assets/js/services/queue.js"></script>
+    <script src="assets/js/services/system.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
 

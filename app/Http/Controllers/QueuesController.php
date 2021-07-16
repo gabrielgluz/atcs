@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aircraft;
-use App\Models\Queue;
 use App\Repositories\AircraftRepository;
 use App\Repositories\QueueRepository;
 use Illuminate\Http\Request;
@@ -14,8 +12,8 @@ class QueuesController extends Controller
 	private $aircraftRepository;
 
 	public function __construct() {
-		$this->queueRepository = new QueueRepository(new Queue);
-		$this->aircraftRepository = new AircraftRepository(new Aircraft);
+		$this->queueRepository = new QueueRepository();
+		$this->aircraftRepository = new AircraftRepository();
 	}
 
 	public function get()
@@ -32,7 +30,10 @@ class QueuesController extends Controller
         ]);
 
         try {
-            
+
+            if(!$this->checkIfSystemIsOnline())
+                throw new \Exception("System if Offline! To enqueue Aircrafts you must turn the system on.");
+
             $this->queueRepository->create($request->all());
             return response()->json([
                 'message' => 'Aircraft enqueued successfully'
@@ -51,6 +52,9 @@ class QueuesController extends Controller
     public function dequeue() 
     {
         try {
+
+            if(!$this->checkIfSystemIsOnline())
+                throw new \Exception("System if Offline! To dequeue Aircrafts you must turn the system on.");
             
             $this->queueRepository->delete();        
 
