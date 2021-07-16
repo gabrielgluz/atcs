@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li class="navbar-item active">
-                <a href="#">
+                <a href="#" onclick="dequeue()">
                     <i class="fa fa-plane-departure"></i>
                     Dequeue
                 </a>
@@ -64,9 +64,9 @@
 
         <div class="wrapper-container">
         	<h3>Enqueued Aircrafts</h3>
-            <div id="queued-aircraft-list" class="row mt-4"></div>
+            <div id="queue-list" class="row mt-4"></div>
         </div>
-        <div class="wrapper-container">
+        <div class="wrapper-container mt-4">
         	<h3>Dequeued Aircrafts</h3>
             <div id="aircraft-list" class="row mt-4"></div>
         </div>
@@ -120,6 +120,7 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/sweetalert2.js"></script>
     <script src="assets/js/services/aircraft.js"></script>
+    <script src="assets/js/services/queue.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
 

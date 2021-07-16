@@ -3,24 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aircraft;
+use App\Repositories\AircraftRepository;
 use App\Rules\Size;
 use App\Rules\Type;
 use Illuminate\Http\Request;
 
 class AircraftsController extends Controller
 {
+    private $aircraftRepository;
+
+    public function __construct () 
+    {
+        $this->aircraftRepository = new AircraftRepository(new Aircraft);
+    }
 
     public function get()
     {
-        $aircrafts = Aircraft::whereDoesntHave('queue')->get()->toArray();
-        $aircrafts = $this->array_orderby($aircrafts);
+        $aircrafts = $this->aircraftRepository->getNotEnqueued();
 
         return response()->json($aircrafts);
     }
 
     public function show($id)
     {
-        $aircraft = Aircraft::find($id);
+        $aircraft = $this->aircraftRepository->find($id);
 
         return response()->json($aircraft);
     }
@@ -35,7 +41,7 @@ class AircraftsController extends Controller
 
         try {
             
-            $aircraft = Aircraft::create($request->all());
+            $this->aircraftRepository->create($request->all());
             return response()->json([
                 'message' => 'Aircraft created successfully'
             ]);
@@ -60,7 +66,7 @@ class AircraftsController extends Controller
 
         try {
             
-            $aircraft = Aircraft::find($id);
+            $aircraft = $this->aircraftRepository->find($id);
             $aircraft->update($request->all());
 
             return response()->json([
@@ -81,8 +87,8 @@ class AircraftsController extends Controller
     {
         try {
             
-            $aircraft = Aircraft::find($id);
-            $aircraft->forceDelete();
+            $aircraft = $this->aircraftRepository->find($id);
+            $aircraft->delete();
 
             return response()->json([
                 'message' => 'Aircraft removed successfully'
@@ -97,22 +103,6 @@ class AircraftsController extends Controller
 
         }
 
-    }
-
-    private function array_orderby(&$array)
-    {
-        if(empty($array))
-            return $array;
-        
-        foreach ($array as $key => $row) {
-            $type_priority[$key] = $row['type_priority'];
-            $size_priority[$key] = $row['size_priority'];
-            $enqueued_at[$key] = $row['enqueued_at'];
-        }
-
-        array_multisort($type_priority, SORT_ASC, $size_priority, SORT_ASC, $enqueued_at, SORT_ASC,$array);
-
-        return $array;
     }
 
 }

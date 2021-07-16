@@ -104,7 +104,7 @@ class Aircraft {
             if(json){
                 $('#aircraft-modal').modal('hide');
                 this.init();
-                alert2('Sucesso', json.message, {
+                alert2('Success', json.message, {
                     icon: 'success',
                     confirmText: 'OK'
                 });
@@ -112,12 +112,12 @@ class Aircraft {
         })
         .fail((error) => {
             if(error.status === 422){
-                alert2('Whoops!','Check the required fields', {
+                alert2('Whoops!','All the fields are required', {
                     icon: 'error',
                     confirmText: 'OK'
                 });
             } else {
-                alert2('Whoops!', 'Unexpedted Error', {
+                alert2('Whoops!', error.responseJSON.message, {
                     icon: 'error',
                     confirmText: 'OK'
                 });
@@ -145,12 +145,12 @@ class Aircraft {
         })
         .fail((error) => {
             if(error.status === 422){
-                alert2('Whoops!','Check the required fields', {
+                alert2('Whoops!','All the fields are required', {
                     icon: 'error',
                     confirmText: 'OK'
                 });
             } else {
-                alert2('Whoops!', 'Unexpedted Error', {
+                alert2('Whoops!', error.responseJSON.message, {
                     icon: 'error',
                     confirmText: 'OK'
                 });
@@ -180,7 +180,7 @@ class Aircraft {
                 }
             })
             .fail((error) => {
-                alert2('Whoops!', 'Unexpedted Error', {
+                alert2('Whoops!', error.responseJSON.message, {
                     icon: 'error',
                     confirmText: 'OK'
                 });

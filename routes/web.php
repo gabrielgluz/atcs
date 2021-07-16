@@ -17,8 +17,8 @@ $router->get('/',  ['as' => 'index', 'uses' => 'SiteController@index']);
 
 $router->group(['prefix' => 'queues'], function () use ($router) {
 	$router->get('/',  ['as' => 'queue.get', 'uses' => 'QueuesController@get']);
-	$router->post('/',  ['as' => 'queue.post', 'uses' => 'QueuesController@create']);
-	$router->delete('/',  ['as' => 'queue.delete', 'uses' => 'QueuesController@delete']);
+	$router->post('/',  ['as' => 'queue.enqueue', 'uses' => 'QueuesController@enqueue']);
+	$router->delete('/',  ['as' => 'queue.dequeue', 'uses' => 'QueuesController@dequeue']);
 });
 
 $router->group(['prefix' => 'aircrafts'], function () use ($router) {

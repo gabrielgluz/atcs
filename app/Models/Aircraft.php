@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Aircraft extends Model
@@ -15,7 +16,7 @@ class Aircraft extends Model
 		'size'
 	];
 
-	protected $appends = ['type_priority', 'size_priority', 'enqueued_at'];
+	protected $appends = ['type_priority', 'size_priority', 'enqueued_at', 'enqueued_at_formatted'];
 
     public function getTypePriorityAttribute() 
     {
@@ -43,8 +44,14 @@ class Aircraft extends Model
 
     public function getEnqueuedAtAttribute()
     {
-    	if(!empty($this->queue->created_at))
-    		return $this->queue->created_at;
+        if(!empty($this->queue->created_at))
+            return $this->queue->created_at;
+    }
+
+    public function getEnqueuedAtFormattedAttribute()
+    {
+        if(!empty($this->queue->created_at))
+            return Carbon::parse($this->queue->created_at)->format('m/d/Y H:i:s');
     }
 
 	public function queue() {

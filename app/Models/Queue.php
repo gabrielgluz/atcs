@@ -10,7 +10,7 @@ class Queue extends Model
 		'aircraft_id'
 	];
 
-	public function aircrafts() {
+	public function aircraft() {
         return $this->belongsTo(Aircraft::class);
 	}
 }
